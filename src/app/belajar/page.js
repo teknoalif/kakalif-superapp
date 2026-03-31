@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase';
+import { supabase } from '../../lib/supabase';
 import { PlayCircle, BookOpen, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
