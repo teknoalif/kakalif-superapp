@@ -1,49 +1,59 @@
-import { supabase } from '../../lib/supabase';
-import { PlayCircle, BookOpen, ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
+'use client'
+import { useEffect, useState } from 'react'
+import { supabase } from '../../lib/supabase'
+import { PlayCircle, BookOpen, ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
 
-export default async function BelajarPage() {
-  // Ambil data dari Supabase
-  const { data: lessons, error } = await supabase
-    .from('lessons')
-    .select('*, categories(name)');
+export default function BelajarPage() {
+  const [lessons, setLessons] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchMateri() {
+      const { data, error } = await supabase
+        .from('lessons')
+        .select('*, categories(name)')
+      
+      if (!error) setLessons(data)
+      setLoading(false)
+    }
+    fetchMateri()
+  }, [])
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
-      {/* Header */}
-      <div className="bg-blue-600 text-white p-8 rounded-b-[40px] shadow-lg mb-8">
-        <Link href="/" className="flex items-center gap-2 text-sm opacity-80 mb-4">
-          <ArrowLeft className="w-4 h-4" /> Kembali
+    <div className="min-h-screen bg-white pb-20">
+      <div className="bg-blue-600 text-white p-8 rounded-b-[40px] mb-8">
+        <Link href="/" className="text-sm opacity-80 flex items-center gap-2 mb-4">
+          <ArrowLeft size={16} /> Kembali
         </Link>
         <h1 className="text-3xl font-bold">Halo, Kak Alif!</h1>
-        <p className="opacity-90 mt-2">Mau belajar matematika apa hari ini?</p>
+        <p className="opacity-90">Siap belajar matematika hari ini?</p>
       </div>
 
       <div className="px-6">
-        <div className="flex items-center gap-2 mb-6">
-          <BookOpen className="text-blue-600 w-5 h-5" />
-          <h2 className="text-xl font-bold text-gray-800">Materi Tersedia</h2>
-        </div>
+        <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <BookOpen className="text-blue-600" /> Materi Video
+        </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {lessons?.map((lesson) => (
-            <div key={lesson.id} className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-3">
-              <span className="w-fit text-[10px] font-bold px-2 py-1 bg-blue-100 text-blue-600 rounded-md uppercase">
-                {lesson.categories?.name}
-              </span>
-              <h3 className="font-bold text-lg text-gray-800">{lesson.title}</h3>
-              <p className="text-gray-500 text-sm line-clamp-2">{lesson.description}</p>
-              <a 
-                href={lesson.youtube_url} 
-                target="_blank" 
-                className="mt-2 flex items-center justify-center gap-2 bg-gray-900 text-white py-3 rounded-xl font-medium hover:bg-blue-700 transition-all"
-              >
-                <PlayCircle className="w-5 h-5" /> Tonton Video
-              </a>
-            </div>
-          ))}
-        </div>
+        {loading ? (
+          <p className="text-center py-10">Memuat materi...</p>
+        ) : (
+          <div className="grid gap-4">
+            {lessons.map((item) => (
+              <div key={item.id} className="p-5 border rounded-2xl shadow-sm">
+                <span className="text-[10px] font-bold bg-blue-100 text-blue-600 px-2 py-1 rounded uppercase">
+                  {item.categories?.name}
+                </span>
+                <h3 className="font-bold text-lg mt-2">{item.title}</h3>
+                <p className="text-gray-500 text-sm mb-4">{item.description}</p>
+                <a href={item.youtube_url} target="_blank" className="block text-center bg-black text-white py-3 rounded-xl font-bold">
+                  Tonton di YouTube
+                </a>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
-  );
+  )
 }
