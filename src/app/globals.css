@@ -1,0 +1,24 @@
+/* --- TAILWIND DIRECTIVES: 'Mesin' utama untuk styling cepat --- */
+@tailwind base;       /* Reset standar browser (biar tampilan sama di Chrome/Safari) */
+@tailwind components; /* Tempat komponen buatan Tailwind (seperti container) */
+@tailwind utilities;  /* Kelas siap pakai (seperti flex, p-4, text-center) */
+
+/* --- CSS VARIABLES: 'Gudang' warna agar tidak capek ketik kode HEX berulang kali --- */
+:root {
+  /* Nama variabel diawali -- (dua strip). Sangat membantu biar tema tetap seragam */
+  --wpu-navy: #0f172a; /* Warna gelap profesional untuk teks/header */
+  --wpu-blue: #0284c7; /* Warna biru cerah aksen utama */
+  --wpu-bg: #f8fafc;   /* Warna background yang soft (tidak bikin mata lelah) */
+}
+
+/* --- BASE STYLING: Aturan dasar untuk seluruh elemen halaman --- */
+body {
+  /* Memanggil variabel warna yang sudah dibuat di atas tadi */
+  background-color: var(--wpu-bg); 
+  
+  /* Warna teks utama (Abu-abu gelap, bukan hitam pekat agar lebih elegan) */
+  color: #334155; 
+  
+  /* Menghilangkan scrollbar horizontal yang sering muncul tidak sengaja */
+  overflow-x: hidden; 
+}
