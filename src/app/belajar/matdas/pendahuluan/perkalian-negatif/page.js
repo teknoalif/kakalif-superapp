@@ -82,7 +82,7 @@ export default function PerkalianNegatif() {
             <Scale size={20} /> Sudut Pandang Islam
           </h3>
           <p style={{ fontSize: '0.85rem', lineHeight: '1.6', color: '#166534' }}>
-            Dalam kaidah fiqh: 'Menghilangkan kemudaratan adalah manfaat'. Secara matematis: Menghilangkan (-) Kemudaratan (-) = Manfaat (+).
+            Dalam kaidah fiqh: 'Menghilangkan kemudaratan adalah manfaat'. Secara matematis: Menghilangkan (-) Kemudaratan (-) = Manfaat (+) (Dr. Abdussakir, M.Pd).
           </p>
         </div>
       </div>

@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar'
 
 // Metadata dengan cara yang lebih disukai Next.js untuk ikon
 export const metadata = {
-  title: 'Kakalif App - Ruang Belajar Matematika',
+  title: 'Kak Alif Guru Matematika',
   description: 'Ekosistem belajar matematika eksklusif oleh Alif Rezky, M.Pd.',
   icons: {
     icon: [

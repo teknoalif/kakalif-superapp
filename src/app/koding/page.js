@@ -1,125 +1,143 @@
-'use client' // Komponen ini interaktif (ada tombol klik WhatsApp)
+'use client'
+import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
 
 export default function KodingPage() {
-  // --- DATA ARRAY: Daftar Layanan Pembuatan Website (Ditambah Fitur Demo) ---
-  const services = [
-    { 
-      t: 'Paket UMKM', 
-      s: '🏢', 
-      p: '3.000.000 - Rp 6.000.000', 
-      tag: 'Paling Laris',
-      fitur: [
-        'Desain Premium (Max 5 Halaman)', 
-        'Website Responsive (HP/PC)', 
-        'Integrasi WhatsApp Chat', 
-        'Google Map & SEO Dasar'
-      ],
-      cocok: 'Company Profile, Sekolah, Klinik, dan Bisnis Lokal.',
-      demoUrl: 'https://dapurmamauwais.kakalif.my.id', // LINK DEMO KHUSUS UMKM
-      demoLabel: 'Lihat Contoh: Dapur Mama Uwais'
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    setIsLoaded(true)
+  }, [])
+
+  // Fungsi maut untuk WA otomatis
+  const hubungiWA = (layanan, harga = '') => {
+    const pesan = `Halo Kak Alif, saya tertarik dengan layanan ${layanan} ${harga ? 'dengan harga ' + harga : ''} di Al Alify Tech. Bisa konsultasi dulu?`
+    window.open(`https://wa.me/6285256162879?text=${encodeURIComponent(pesan)}`, '_blank')
+  }
+
+  const layananWeb = [
+    {
+      nama: 'Landing Page',
+      harga: '300K',
+      hargaCoret: '750K', // Tambahan harga coret
+      target: 'Personal / Produk Tunggal',
+      listContoh: [{ label: 'Halaman Promosi Buku kak Alif', link: '/buku' }],
+      fitur: ['1 Halaman', 'Gratis Domain .id untuk 1 tahun pertama', 'WA Otomatis'],
+      warna: '#0F172A'
     },
-    { 
-      t: 'Paket E-Commerce', 
-      s: '🛒', 
-      p: '7.500.000 - Rp 25.000.000', 
-      tag: 'Lengkap',
-      fitur: [
-        'Katalog Produk Tanpa Batas', 
-        'Hitung Ongkir Otomatis', 
-        'Payment Gateway (Opsional)', 
-        'Laporan Penjualan Lengkap'
-      ],
-      cocok: 'Toko Online, Brand Produk, Dropshipper, dan Reseller.'
+    {
+      nama: 'Web Bisnis',
+      harga: '1 JUTA',
+      hargaCoret: '3 JUTA', // Tambahan harga coret
+      rekomendasi: true,
+      target: 'UMKM / Profile',
+      listContoh: [{ label: 'Dapur Mama Uwais', link: 'https://dapurmamauwais.kakalif.my.id' }],
+      fitur: ['Hingga 5 Halaman', 'Email Bisnis', 'Free Maintenance'],
+      warna: '#118EEA'
     },
-    { 
-      t: 'Paket Landing Page', 
-      s: '🎯', 
-      p: '1.000.000 - Rp 3.000.000', 
-      tag: 'Fokus Konversi',
-      fitur: [
-        'Desain Khusus untuk Penjualan', 
-        'Copywriting Persuasif', 
-        'Integrasi Ads (FB/Google)', 
-        'Pengerjaan Cepat (3 Hari)'
+    {
+      nama: 'Web Custom (CBT, Resto, dsb)',
+      harga: '5 JUTA - 8 JUTA',
+      hargaCoret: '50 JUTA', // Tambahan harga coret
+      promoLabel: '🔥 POPULER',
+      target: 'Sistem / Aplikasi Web',
+      listContoh: [
+        { label: 'Sistem CBT Sekolah', link: 'https://cbt.kakalif.my.id' },
+        { label: 'Restoran La Crosta Jatinangor', link: 'https://lacrosta.id' }
       ],
-      cocok: 'Penjualan 1 Produk, Promo Event, Webinar, dan Pengumpul Leads.'
+      fitur: ['Anti-Curang (untuk CBT)', 'Database Modern', 'Dashboard Admin (untuk Kasir Restoran)'],
+      warna: '#0F172A'
     }
   ]
 
-  const handlePesan = (namaLayanan) => {
-    const nomorWA = '6285256162879'
-    const pesan = encodeURIComponent(`Bismillah Kak Alif, saya tertarik dengan layanan: ${namaLayanan}. Boleh tanya-tanya dulu?`)
-    window.open(`https://wa.me/${nomorWA}?text=${pesan}`, '_blank')
-  }
+  const layananService = [
+    { nama: 'Hardware Service', ikon: '💻', item: ['Layar/LCD', 'Motherboard', 'Keyboard', 'Upgrade RAM/SSD'] },
+    { nama: 'Software & Optimasi', ikon: '⚙️', item: ['Install OS (GNU/Linux dan Windows)', 'Hapus Virus', 'Recovery Data'] },
+    { nama: 'Konsultasi & Rakit', ikon: '🔍', item: ['Rekomendasi Laptop', 'Rakit PC', 'Jaringan Internet'] }
+  ]
+
+  if (!isLoaded) return <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh' }} />
 
   return (
-    <main style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', fontFamily: 'sans-serif' }}>
-      
-      {/* HEADER */}
-      <div style={{ background: 'linear-gradient(135deg, #118EEA 0%, #0F172A 100%)', padding: '100px 20px', color: 'white', textAlign: 'center' }}>
-        <h1 style={{ fontWeight: 950, fontSize: '3.5rem', letterSpacing: '-2px', margin: 0 }}>GO DIGITAL SEKARANG!</h1>
-        <p style={{ fontSize: '1.2rem', fontWeight: 600, opacity: 0.8, marginTop: '15px' }}>Dapatkan Website Profesional & Terpercaya untuk Melejitkan Bisnismu.</p>
-      </div>
-
-      {/* GRID CONTAINER */}
-      <div style={{ maxWidth: '1200px', margin: '60px auto', padding: '0 20px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '40px' }}>
+    <main suppressHydrationWarning style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', padding: '40px 15px' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
         
-        {services.map((s, index) => (
-          <div key={index} style={{ backgroundColor: 'white', borderRadius: '40px', border: '1px solid #E2E8F0', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column' }}>
-            
-            <div style={{ padding: '40px', flex: 1 }}>
-              <div style={{ fontSize: '70px', marginBottom: '10px', textAlign: 'center' }}>{s.s}</div>
-              <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                <span style={{ display: 'inline-block', padding: '6px 15px', backgroundColor: '#E0F2FE', color: '#118EEA', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 900 }}>{s.tag}</span>
-              </div>
-              <h3 style={{ fontWeight: 950, fontSize: '1.6rem', color: '#0F172A', marginBottom: '15px', textAlign: 'center' }}>{s.t}</h3>
-              
-              {/* FITUR UTAMA */}
-              <div style={{ textAlign: 'left', marginBottom: '25px' }}>
-                <div style={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A', marginBottom: '10px' }}>Fitur Utama:</div>
-                <ul style={{ paddingLeft: '20px', fontSize: '0.85rem', color: '#64748B', lineHeight: '1.8' }}>
-                  {s.fitur.map((f, i) => <li key={i}>{f}</li>)}
-                </ul>
-              </div>
-
-              {/* COCOK UNTUK */}
-              <div style={{ textAlign: 'left', marginBottom: '25px', padding: '15px', backgroundColor: '#F8FAFC', borderRadius: '15px', borderLeft: '4px solid #FF6F00' }}>
-                <div style={{ fontWeight: 800, fontSize: '0.85rem', color: '#FF6F00' }}>✅ Cocok Untuk:</div>
-                <div style={{ fontSize: '0.8rem', color: '#475569', marginTop: '5px', fontWeight: 600 }}>{s.cocok}</div>
-              </div>
-
-              {/* TOMBOL LIVE DEMO (Muncul jika ada demoUrl) */}
-              {s.demoUrl && (
-                <a href={s.demoUrl} target="_blank" style={{ display: 'block', marginBottom: '25px', padding: '12px', backgroundColor: '#F0FDFA', border: '1px dashed #14B8A6', borderRadius: '15px', color: '#0D9488', textDecoration: 'none', textAlign: 'center', fontSize: '0.85rem', fontWeight: 800 }}>
-                  🌐 {s.demoLabel}
-                </a>
-              )}
-
-              {/* INFO HARGA */}
-              <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '20px', textAlign: 'center' }}>
-                <div style={{ fontSize: '0.8rem', color: '#94A3B8', fontWeight: 800 }}>INVESTASI MULAI</div>
-                <div style={{ fontSize: '1.0rem', fontWeight: 950, color: '#118EEA' }}>Rp {s.p}</div>
-                <div style={{ fontSize: '0.7rem', color: '#94A3B8', marginTop: '5px' }}>*Harga menyesuaikan kerumitan fitur</div>
-              </div>
-            </div>
-            
-            <button 
-              onClick={() => handlePesan(s.t)}
-              style={{ width: '100%', backgroundColor: '#0F172A', color: 'white', padding: '25px', border: 'none', fontWeight: 900, fontSize: '1rem', cursor: 'pointer', transition: '0.3s', textTransform: 'uppercase' }}
-            >
-              Tanya Kak Alif Sekarang 🚀
-            </button>
-          </div>
-        ))}
-      </div>
-
-      {/* FOOTER BONUS */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto 60px auto', padding: '0 20px', textAlign: 'center' }}>
-        <div style={{ padding: '20px', backgroundColor: '#FF6F00', color: 'white', borderRadius: '20px', fontWeight: 700, fontSize: '0.9rem' }}>
-          🎁 BONUS TAMBAHAN: GRATIS Domain (.com) & Hosting Tahun Pertama | GRATIS SSL (Keamanan) | Panduan Mengelola Website
+        {/* Header Section */}
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <span style={{ backgroundColor: '#E0F2FE', color: '#118EEA', padding: '8px 15px', borderRadius: '50px', fontSize: '0.75rem', fontWeight: 900 }}>SOLUSI TEKNOLOGI TERPADU</span>
+          <h1 style={{ fontWeight: 950, fontSize: 'clamp(2rem, 8vw, 3.5rem)', color: '#0F172A', marginTop: '15px', letterSpacing: '-1px', lineHeight: '1' }}>
+            AL ALIFY<span style={{ color: '#118EEA' }}> TECH</span>
+          </h1>
+          <p style={{ color: '#64748B', fontSize: '0.9rem', fontWeight: 600, marginTop: '10px' }}>Koding & Hardware Solutions.</p>
         </div>
-      </div>
 
+        {/* Web Dev Section */}
+        <h2 style={{ fontWeight: 900, marginBottom: '20px', color: '#0F172A', fontSize: '1.4rem' }}>🚀 Website & Aplikasi</h2>
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+          gap: '20px', 
+          marginBottom: '60px' 
+        }}>
+          {layananWeb.map((item, index) => (
+            <div key={index} style={{ backgroundColor: 'white', borderRadius: '30px', padding: '25px', border: item.rekomendasi ? '3px solid #118EEA' : '1px solid #E2E8F0', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+              {item.promoLabel && (
+                <span style={{ position: 'absolute', top: '-12px', right: '20px', backgroundColor: '#118EEA', color: 'white', padding: '4px 12px', borderRadius: '10px', fontSize: '0.7rem', fontWeight: 900 }}>{item.promoLabel}</span>
+              )}
+              <h3 style={{ fontWeight: 900, fontSize: '1.2rem' }}>{item.nama}</h3>
+              <div style={{ margin: '15px 0' }}>
+                {item.listContoh.map((ex, i) => (
+                  <Link key={i} href={ex.link} target="_blank" style={{ fontSize: '0.75rem', color: '#118EEA', fontWeight: 700, display: 'block', marginBottom: '4px' }}>
+                    {ex.label} 🔗
+                  </Link>
+                ))}
+              </div>
+              
+              {/* Bagian Harga dengan Harga Coret */}
+              <div style={{ marginBottom: '15px' }}>
+                <div style={{ fontSize: '0.85rem', color: '#94A3B8', textDecoration: 'line-through', fontWeight: 700, marginBottom: '-5px' }}>
+                  Rp {item.hargaCoret}
+                </div>
+                <span style={{ fontSize: '1.6rem', fontWeight: 950, color: item.warna }}>Rp {item.harga}</span>
+              </div>
+
+              <div style={{ flexGrow: 1, marginBottom: '20px' }}>
+                {item.fitur.map((f, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '6px', fontSize: '0.8rem', fontWeight: 600 }}>
+                    <span style={{ color: '#118EEA' }}>✓</span> {f}
+                  </div>
+                ))}
+              </div>
+              <button 
+                onClick={() => hubungiWA(item.nama, item.harga)}
+                style={{ backgroundColor: item.warna, color: 'white', padding: '12px', borderRadius: '12px', border: 'none', fontWeight: 900, cursor: 'pointer', transition: '0.3s' }}>
+                AMBIL PROMO 🚀
+              </button>
+            </div>
+          ))}
+        </div>
+
+        {/* Hardware Section */}
+        <h2 style={{ fontWeight: 900, marginBottom: '20px', color: '#0F172A', fontSize: '1.4rem' }}>🔧 Hardware Service</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '50px' }}>
+          {layananService.map((item, index) => (
+            <div 
+              key={index} 
+              onClick={() => hubungiWA(item.nama)}
+              style={{ backgroundColor: 'white', borderRadius: '30px', padding: '25px', border: '1px solid #E2E8F0', cursor: 'pointer', transition: '0.3s' }}>
+              <div style={{ fontSize: '2rem', marginBottom: '10px' }}>{item.ikon}</div>
+              <h3 style={{ fontWeight: 900, fontSize: '1.2rem' }}>{item.nama}</h3>
+              <div style={{ backgroundColor: '#F8FAFC', padding: '15px', borderRadius: '15px', marginTop: '10px' }}>
+                {item.item.map((li, i) => (
+                  <div key={i} style={{ fontSize: '0.8rem', fontWeight: 700, marginBottom: '5px', color: '#334155' }}>• {li}</div>
+                ))}
+              </div>
+              <div style={{ marginTop: '15px', fontSize: '0.75rem', color: '#118EEA', fontWeight: 800 }}>Klik untuk Konsultasi →</div>
+            </div>
+          ))}
+        </div>
+
+      </div>
     </main>
   )
 }
