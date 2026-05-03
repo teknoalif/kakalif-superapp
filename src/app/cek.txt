@@ -1,0 +1,15 @@
+  // DATA DONATUR (Update 2 Mei 2026)
+  const donasiHarian = [
+    { tanggal: '2 Mei 2026', list: [
+      { nama: 'Hamba Allah', paket: 'SANTRI+', nominal: '100.098' }
+    ]},
+    { tanggal: '1 Mei 2026', list: [
+      { nama: 'Hamba Allah', paket: 'SANTRI', nominal: '50.098' }
+    ]},
+    { tanggal: '27 April 2026', list: [
+      { nama: 'Hamba Allah', paket: 'SANTRI', nominal: '50.098' }
+    ]},
+    { tanggal: '27 Apr 2026', list: [
+      { nama: 'Alif Rezky', paket: 'SILVER', nominal: '1.000.098' }
+    ]},
+  ]
